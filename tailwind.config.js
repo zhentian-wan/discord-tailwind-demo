@@ -3,8 +3,14 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  // These paths are just examples, customize them to match your project structure
+  purge: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: false, // or 'media' or 'class'
+  mode: "jit",
   theme: {
     extend: {
       fontFamily: {
@@ -12,6 +18,7 @@ module.exports = {
         title: ["Ginto", "Open Sans", ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        brand: "#5865F2",
         gray: {
           50: "#ECEDEE",
           100: "#DCDDDE",
