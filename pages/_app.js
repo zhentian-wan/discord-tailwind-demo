@@ -4,11 +4,12 @@ import "../styles.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { DiscordIcon } from "../components/icon";
-let servers = [
-  { id: "1", img: "tailwind.png" },
-  { id: "2", img: "next.png" },
-  { id: "3", img: "mirage.png" },
+export let servers = [
+  { id: "1", img: "tailwind.png", name: "Tailwind CSS" },
+  { id: "2", img: "next.png", name: "Next.js" },
+  { id: "3", img: "mirage.png", name: "Mirage" },
 ];
+export const getServerById = (id) => servers.find((s) => s.id === id);
 
 // 1. group + group-hover
 // 2. group-active:translate-y-px: tranlsate y 1 px when group is active
@@ -29,7 +30,11 @@ function MyApp({ Component, pageProps }) {
           <hr className="border-t-white/[0.06] border-t-2 rounded mx-2" />
           {servers.map((server) => {
             return (
-              <NavLink key={server.id} href={`/servers/${server.id}`}>
+              <NavLink
+                key={server.id}
+                href={`/servers/${server.id}`}
+                title={server.name}
+              >
                 <img src={`/servers/${server.img}`} alt="" />
               </NavLink>
             );
