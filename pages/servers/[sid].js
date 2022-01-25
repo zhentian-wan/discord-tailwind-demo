@@ -1,6 +1,13 @@
 import Post from "../Post";
 import { useRouter } from "next/router";
-import { VerifiedIcon, CheckIcon, ChevronIcon } from "../../components/icon";
+import {
+  VerifiedIcon,
+  CheckIcon,
+  ChevronIcon,
+  BookIcon,
+  AddPersonIcon,
+  SpeakerphoneIcon,
+} from "../../components/icon";
 import { getServerById } from "../_app";
 
 export default function Server1() {
@@ -19,8 +26,26 @@ export default function Server1() {
           {getServerName(router.query.sid)}
           <ChevronIcon className="w-[18px] h-[18px] ml-auto opacity-80" />
         </button>
-        <div className="p-3 text-gray-300 flex-1 overflow-y-scroll space-y-2 font-medium">
-          <div className="flex-1 p-4 text-white">channels (unread)</div>
+        <div className="text-gray-300 flex-1 overflow-y-scroll font-medium mt-[17px]">
+          <div className="space-y-0.5">
+            {/* space-y-0.5: apply margin to the children element*/}
+            <a
+              href="#"
+              className="flex px-2 mx-2 py-1 items-center text-gray-300 hover:text-gray-100 hover:bg-gray-550/[0.16] rounded group"
+            >
+              <BookIcon className="w-4 h-4 text-gray-400 mr-1.5" />
+              Welcome
+              <AddPersonIcon className="w-5 h-5 ml-auto text-gray-200 hover:text-gray-100 opacity-0 group-hover:opacity-100 transition" />
+            </a>
+            <a
+              href="#"
+              className="flex px-2 mx-2 py-1 items-center text-gray-300 hover:text-gray-100 hover:bg-gray-550/[0.16] rounded group"
+            >
+              <SpeakerphoneIcon className="w-4 h-4 text-gray-400 mr-1.5" />
+              Announcements
+              <AddPersonIcon className="w-5 h-5 ml-auto text-gray-200 hover:text-gray-100 opacity-0 group-hover:opacity-100 transition" />
+            </a>
+          </div>
         </div>
       </div>
       <div className="bg-gray-700 flex-1 flex flex-col">
