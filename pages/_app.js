@@ -3,7 +3,7 @@ import "tailwindcss/tailwind.css";
 import "../styles.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { DiscordIcon } from "../components/icon";
+import { Discord } from "../components/icon";
 export let servers = [
   { id: "1", img: "tailwind.png", name: "Tailwind CSS" },
   { id: "2", img: "next.png", name: "Next.js" },
@@ -23,9 +23,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <div className="flex h-screen text-gray-100">
-        <div className="p-3 space-y-2 overflow-y-scroll bg-gray-900">
+        <div className="p-3 space-y-2 overflow-y-auto bg-gray-900">
           <NavLink href="/">
-            <DiscordIcon className="h-5 w-7" />
+            <Discord className="h-5 w-7" />
           </NavLink>
           <hr className="border-t-white/[0.06] border-t-2 rounded mx-2" />
           {servers.map((server) => {
