@@ -24,7 +24,7 @@ export default function Server1() {
           {data["1"].categories.map((category) => (
             <div key={category.id}>
               {category.label && (
-                <button className="flex items-center text-xs font-title uppercase px-0.5 tracking-wide">
+                <button className="flex items-center text-xs font-title uppercase px-0.5 tracking-wide hover:text-gray-100 w-full">
                   <Icons.Arrow className="w-3 h-3 ml-0.5" />
                   {category.label}
                 </button>
@@ -56,16 +56,27 @@ function ChannelLink({ channel }) {
   const Icon = channel.icon ? Icons[channel.icon] : Icons.Hashtag;
   let router = useRouter();
   let active = +router.query.cid === +channel.id;
+  let status = active
+    ? "active"
+    : channel.unread
+    ? "inactiveUnread"
+    : "inactiveRead";
+  let classes = {
+    active: "text-white bg-gray-550/[0.32]",
+    inactiveUnread:
+      "text-white hover:bg-gray-550/[0.16] active:bg-gray-550/[0.24]",
+    inactiveRead:
+      "text-gray-300 hover:text-gray-100 hover:bg-gray-550/[0.16] active:bg-gray-550/[0.24]",
+  };
 
   return (
     <Link href={`/servers/1/channels/${channel.id}`}>
       <a
-        className={`${
-          active
-            ? "text-white bg-gray-550/[0.32]"
-            : "text-gray-300 hover:text-gray-100 hover:bg-gray-550/[0.16]"
-        } flex px-2 mx-2 py-1 items-center rounded group`}
+        className={`${classes[status]} flex px-2 mx-2 py-1 items-center rounded group relative`}
       >
+        {status === "inactiveUnread" && (
+          <div className="absolute w-1 h-2 bg-white left-0 -ml-2 rounded-r-full"></div>
+        )}
         <Icon className="w-4 h-4 text-gray-400 mr-1.5" />
         {channel.label}
         <Icons.AddPerson className="w-5 h-5 ml-auto text-gray-200 hover:text-gray-100 opacity-0 group-hover:opacity-100 transition" />
