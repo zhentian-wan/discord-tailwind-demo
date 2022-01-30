@@ -1,8 +1,9 @@
-import Post from "../Post";
+import Post from "../../../Post";
 import { useRouter } from "next/router";
-import * as Icons from "../../components/icon";
-import { getServerById } from "../_app";
-import data from "../../data.json";
+import * as Icons from "../../../../components/icon";
+import { getServerById } from "../../../_app";
+import data from "../../../../data.json";
+import Link from "next/link";
 export default function Server1() {
   const router = useRouter();
 
@@ -53,16 +54,22 @@ export default function Server1() {
 
 function ChannelLink({ channel }) {
   const Icon = channel.icon ? Icons[channel.icon] : Icons.Hashtag;
+  let router = useRouter();
+  let active = +router.query.cid === +channel.id;
+
   return (
-    <>
+    <Link href={`/servers/1/channels/${channel.id}`}>
       <a
-        href="#"
-        className="flex px-2 mx-2 py-1 items-center text-gray-300 hover:text-gray-100 hover:bg-gray-550/[0.16] rounded group"
+        className={`${
+          active
+            ? "text-white bg-gray-550/[0.32]"
+            : "text-gray-300 hover:text-gray-100 hover:bg-gray-550/[0.16]"
+        } flex px-2 mx-2 py-1 items-center rounded group`}
       >
         <Icon className="w-4 h-4 text-gray-400 mr-1.5" />
         {channel.label}
         <Icons.AddPerson className="w-5 h-5 ml-auto text-gray-200 hover:text-gray-100 opacity-0 group-hover:opacity-100 transition" />
       </a>
-    </>
+    </Link>
   );
 }
