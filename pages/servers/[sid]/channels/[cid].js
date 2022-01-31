@@ -2,10 +2,24 @@ import Post from "../../../Post";
 import { useRouter } from "next/router";
 import * as Icons from "../../../../components/icon";
 import { getServerById } from "../../../_app";
-import data from "../../../../data.json";
+import { data } from "../../../../data";
 import Link from "next/link";
+import { useState } from "react";
 export default function Server1() {
+  const [closeCategories, sestCloseCategoreis] = useState([]);
   const router = useRouter();
+  let server = data[`${router.query.sid}`];
+  const channel = server.categories
+    .map((c) => c.channels)
+    .flat()
+    .find((channel) => +channel.id === +router.query.cid);
+  const toggleCategory = (cid) => {
+    sestCloseCategoreis((closeCategories) => {
+      return closeCategories.includes(cid)
+        ? closeCategories.filter((id) => id !== cid)
+        : [...closeCategories, cid];
+    });
+  };
 
   const getServerName = (id) =>
     getServerById(id)?.name ?? `Server ${router.query.sid}`;
@@ -24,24 +38,76 @@ export default function Server1() {
           {data["1"].categories.map((category) => (
             <div key={category.id}>
               {category.label && (
-                <button className="flex items-center text-xs font-title uppercase px-0.5 tracking-wide hover:text-gray-100 w-full">
-                  <Icons.Arrow className="w-3 h-3 ml-0.5" />
+                <button
+                  onClick={() => toggleCategory(category.id)}
+                  className="flex items-center text-xs font-title uppercase px-0.5 tracking-wide hover:text-gray-100 w-full"
+                >
+                  <Icons.Arrow
+                    className={`${
+                      closeCategories.includes(category.id) ? "-rotate-90" : ""
+                    }  w-3 h-3 ml-0.5 transition duration-200`}
+                  />
                   {category.label}
                 </button>
               )}
 
               <div className="space-y-0.5 mt-[5px]">
                 {/* space-y-0.5: apply margin to the children element*/}
-                {category.channels.map((channel) => (
-                  <ChannelLink key={channel.id} channel={channel}></ChannelLink>
-                ))}
+                {category.channels
+                  .filter((channel) => {
+                    const categoryIsOpen = !closeCategories.includes(
+                      category.id
+                    );
+                    return categoryIsOpen || channel.unread;
+                  })
+                  .map((channel) => (
+                    <ChannelLink
+                      key={channel.id}
+                      channel={channel}
+                    ></ChannelLink>
+                  ))}
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="bg-gray-700 flex-1 flex flex-col">
-        <div className="px-3 h-12 shadow-md flex items-center">general</div>
+      <div className="bg-gray-700 flex-1 flex flex-shrink min-w-0 flex-col">
+        <div className="flex items-center h-12 px-2 shadow-sm">
+          <div className="flex items-center">
+            <Icons.Hashtag className="w-6 h-6 mx-2 font-semibold text-gray-400" />
+            <span className="mr-2 text-white font-title">{channel.label}</span>
+          </div>
+
+          {channel.description && (
+            <>
+              <div className="w-px h-6 mx-2 bg-white/[.06]"></div>
+              <div className="mx-2 text-sm font-medium text-gray-200 truncate">
+                {channel.description}
+              </div>
+            </>
+          )}
+
+          <div className="flex items-center ml-auto">
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.HashtagWithSpeechBubble className="w-6 h-6 mx-2" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.Bell className="w-6 h-6 mx-2" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.Pin className="w-6 h-6 mx-2" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.People className="w-6 h-6 mx-2" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.Inbox className="w-6 h-6 mx-2" />
+            </button>
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.QuestionCircle className="w-6 h-6 mx-2" />
+            </button>
+          </div>
+        </div>
         <div className="flex-1 p-3 overflow-y-auto space-y-4">
           {[...Array(2)].map((_, i) => {
             return <Post key={i} />;
