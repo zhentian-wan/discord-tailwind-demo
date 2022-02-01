@@ -5,6 +5,11 @@ import { getServerById } from "../../../_app";
 import { data } from "../../../../data";
 import Link from "next/link";
 import { useState } from "react";
+
+/**
+ * 
+   1. flex-shrink min-w-0
+ */
 export default function Server1() {
   const [closeCategories, sestCloseCategoreis] = useState([]);
   const router = useRouter();
@@ -75,7 +80,9 @@ export default function Server1() {
         <div className="flex items-center h-12 px-2 shadow-sm">
           <div className="flex items-center">
             <Icons.Hashtag className="w-6 h-6 mx-2 font-semibold text-gray-400" />
-            <span className="mr-2 text-white font-title">{channel.label}</span>
+            <span className="mr-2 text-white font-title whitespace-nowrap">
+              {channel.label}
+            </span>
           </div>
 
           {channel.description && (
@@ -100,6 +107,16 @@ export default function Server1() {
             <button className="text-gray-200 hover:text-gray-100">
               <Icons.People className="w-6 h-6 mx-2" />
             </button>
+            <div className="mx-2 relative">
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-36 h-6 px-1.5 bg-gray-900 border-none rounded text-sm font-medium placeholder-gray-400"
+              />
+              <div className="absolute right-0 inset-y-0 flex items-center">
+                <Icons.Spyglass className="w-4 h-4 mr-1.5 text-gray-400"></Icons.Spyglass>
+              </div>
+            </div>
             <button className="text-gray-200 hover:text-gray-100">
               <Icons.Inbox className="w-6 h-6 mx-2" />
             </button>
