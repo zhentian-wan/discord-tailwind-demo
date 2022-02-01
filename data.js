@@ -278,7 +278,10 @@ function getMessages() {
   return [...Array(getRandomInt(7, 25))]
     .map(() => {
       let user = faker.internet.userName();
-      let avatarUrl = faker.image.avatar();
+      let avatarUrl = `/avatars/${faker.datatype.number({
+        min: 0,
+        max: 25,
+      })}.jpeg`;
 
       return [...Array(getRandomInt(1, 4))].map(() => ({
         user,

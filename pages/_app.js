@@ -4,6 +4,7 @@ import "../styles.css";
 import Link from "next/link";
 import { Discord } from "../components/icon";
 import { useRouter } from "next/router";
+// import { data } from "../data";
 export let servers = [
   { id: "1", img: "tailwind.png", name: "Tailwind CSS" },
   { id: "2", img: "next.png", name: "Next.js" },

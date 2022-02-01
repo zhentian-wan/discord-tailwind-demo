@@ -1,5 +1,3 @@
-import Post from "./Post";
-
 export default function Home() {
   return (
     <>
@@ -20,11 +18,7 @@ export default function Home() {
       </div>
       <div className="bg-gray-700 flex-1 flex flex-col">
         <div className="px-3 h-12 shadow-md flex items-center">Friends</div>
-        <div className="flex-1 p-3 overflow-y-auto space-y-4">
-          {[...Array(10)].map((_, i) => {
-            return <Post key={i} />;
-          })}
-        </div>
+        <div className="flex-1 p-3 overflow-y-auto space-y-4">No messages</div>
       </div>
     </>
   );

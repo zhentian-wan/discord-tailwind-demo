@@ -1,4 +1,4 @@
-import Post from "../../../Post";
+import { Message, MessageWithUser } from "../../../Post";
 import { useRouter } from "next/router";
 import * as Icons from "../../../../components/icon";
 import { getServerById } from "../../../_app";
@@ -14,6 +14,9 @@ export default function Server1() {
   const [closeCategories, sestCloseCategoreis] = useState([]);
   const router = useRouter();
   let server = data[`${router.query.sid}`];
+  if (!server) {
+    return null;
+  }
   const channel = server.categories
     .map((c) => c.channels)
     .flat()
@@ -125,10 +128,16 @@ export default function Server1() {
             </button>
           </div>
         </div>
-        <div className="flex-1 p-3 overflow-y-auto space-y-4">
-          {[...Array(2)].map((_, i) => {
-            return <Post key={i} />;
-          })}
+        <div className="flex-1 overflow-y-auto">
+          {channel.messages.map((message, i) => (
+            <div key={i}>
+              {i === 0 || message.user !== channel.messages[i - 1].user ? (
+                <MessageWithUser message={message} />
+              ) : (
+                <Message message={message}></Message>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </>
