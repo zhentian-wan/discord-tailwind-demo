@@ -1,4 +1,4 @@
-import { Message, MessageWithUser } from "../../../Post";
+import Message, { MessageWithUser } from "../../../Post";
 import { useRouter } from "next/router";
 import * as Icons from "../../../../components/icon";
 import { getServerById } from "../../../_app";

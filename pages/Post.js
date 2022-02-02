@@ -19,10 +19,10 @@ export function MessageWithUser({ message }) {
   );
 }
 
-export function Message({ message }) {
+export default function Message({ message }) {
   return (
     <div className="mt-1 flex hover:bg-gray-800 hover:bg-opacity-30 px-4 py-1 leading-[22px]">
-      <p className="text-gray-100 pl-14">{message.text}</p>
+      <p className="text-gray-100 pl-14">{message?.text}</p>
     </div>
   );
 }
