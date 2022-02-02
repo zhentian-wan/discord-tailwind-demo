@@ -4,7 +4,7 @@ import "../styles.css";
 import Link from "next/link";
 import { Discord } from "../components/icon";
 import { useRouter } from "next/router";
-// import { data } from "../data";
+import { data } from "../data";
 export let servers = [
   { id: "1", img: "tailwind.png", name: "Tailwind CSS" },
   { id: "2", img: "next.png", name: "Next.js" },
@@ -31,13 +31,13 @@ function MyApp({ Component, pageProps }) {
             <Discord className="h-5 w-7" />
           </NavLink>
           <hr className="border-t-white/[0.06] border-t-2 rounded mx-2" />
-          {servers.map((server) => {
+          {data.map((server) => {
             return (
               <NavLink
                 key={server.id}
                 active={+router.query.sid === +server.id}
-                href={`/servers/${server.id}/channels/1`}
-                title={server.name}
+                href={`/servers/${server.id}/channels/${server.categories[0].channels[0].id}`}
+                title={server.label}
               >
                 <img src={`/servers/${server.img}`} alt="" />
               </NavLink>

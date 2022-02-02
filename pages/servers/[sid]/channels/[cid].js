@@ -13,7 +13,7 @@ import { useState } from "react";
 export default function Server1() {
   const [closeCategories, sestCloseCategoreis] = useState([]);
   const router = useRouter();
-  let server = data[`${router.query.sid}`];
+  let server = data.find((server) => +server.id === +router.query.sid);
   if (!server) {
     return null;
   }
@@ -43,7 +43,7 @@ export default function Server1() {
           <Icons.Chevron className="w-[18px] h-[18px] ml-auto opacity-80" />
         </button>
         <div className="text-gray-300 flex-1 overflow-y-auto font-medium pt-3 space-y-[21px]">
-          {data["1"].categories.map((category) => (
+          {server.categories.map((category) => (
             <div key={category.id}>
               {category.label && (
                 <button
@@ -147,6 +147,7 @@ export default function Server1() {
 function ChannelLink({ channel }) {
   const Icon = channel.icon ? Icons[channel.icon] : Icons.Hashtag;
   let router = useRouter();
+  let server = data.find((server) => +server.id === +router.query.sid);
   let active = +router.query.cid === +channel.id;
   let status = active
     ? "active"
@@ -162,7 +163,7 @@ function ChannelLink({ channel }) {
   };
 
   return (
-    <Link href={`/servers/1/channels/${channel.id}`}>
+    <Link href={`/servers/${server.id}/channels/${channel.id}`}>
       <a
         className={`${classes[status]} flex px-2 mx-2 py-1 items-center rounded group relative`}
       >
