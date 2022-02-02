@@ -33,7 +33,7 @@ export default function Server1() {
     getServerById(id)?.name ?? `Server ${router.query.sid}`;
   return (
     <>
-      <div className="bg-gray-800 w-60 flex flex-col">
+      <div className="bg-gray-800 w-60 md:flex flex-col hidden">
         <button className="px-4 h-12 flex items-center shadow-sm font-title text-white text-[15px] transition hover:bg-gray-550/[0.16]">
           <div className="relative w-4 h-4 mr-1">
             <Icons.Verified className="absolute w-4 h-4 text-gray-550" />
@@ -90,14 +90,15 @@ export default function Server1() {
 
           {channel.description && (
             <>
-              <div className="w-px h-6 mx-2 bg-white/[.06]"></div>
-              <div className="mx-2 text-sm font-medium text-gray-200 truncate">
+              <div className="hidden md:block w-px h-6 mx-2 bg-white/[.06]"></div>
+              <div className="hidden md:block mx-2 text-sm font-medium text-gray-200 truncate">
                 {channel.description}
               </div>
             </>
           )}
 
-          <div className="flex items-center ml-auto">
+          {/**Desktop buttons */}
+          <div className="hidden md:flex items-center ml-auto">
             <button className="text-gray-200 hover:text-gray-100">
               <Icons.HashtagWithSpeechBubble className="w-6 h-6 mx-2" />
             </button>
@@ -125,6 +126,17 @@ export default function Server1() {
             </button>
             <button className="text-gray-200 hover:text-gray-100">
               <Icons.QuestionCircle className="w-6 h-6 mx-2" />
+            </button>
+          </div>
+
+          {/**Mobile buttons */}
+          <div className="flex md:hidden items-center ml-auto">
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.HashtagWithSpeechBubble className="w-6 h-6 mx-2" />
+            </button>
+
+            <button className="text-gray-200 hover:text-gray-100">
+              <Icons.People className="w-6 h-6 mx-2" />
             </button>
           </div>
         </div>
